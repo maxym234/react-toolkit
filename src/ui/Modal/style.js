@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import Card from 'antd/lib/card';
+import Modal from 'antd/lib/modal';
 
-export const CardStyled = styled(Card)`
+export const ModalStyled = styled(Modal)`
     display: flex;
     flex-direction: column;
     width: 25%;

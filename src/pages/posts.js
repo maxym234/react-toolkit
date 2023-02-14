@@ -1,4 +1,4 @@
-import { fetchEndpoints, userList } from "../slice/endpointSlice";
+import { fetchData, userList } from "../slice/endpointSlice";
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import { PostsPage } from "../layouts/PostsPage";
@@ -6,11 +6,10 @@ export const Posts = () => {
   const dispatch = useDispatch();
   const data = useSelector(userList);
   useEffect(() => {
-    dispatch(fetchEndpoints('posts'));
+    dispatch(fetchData(`posts${window.location.search}`));
   }, [dispatch]);
+  console.log(window.location.search, 'window');
   return (
-    <div>
-      <PostsPage data={data}/>
-    </div>
+    <PostsPage data={data}/>
   );
 };

@@ -1,7 +1,6 @@
 import { Text } from "./style";
 import { Button } from "../../ui/Button";
-import { addPosts } from "../../slice/endpointSlice";
-import { useSelector, useDispatch } from 'react-redux';
+import { ModalComponent } from "./components/Modal";
 export const columns = [
     {
         title: 'Name',
@@ -65,7 +64,7 @@ export const columns = [
         key: 'x',
         render: (_, record) => {
           return (
-            <a href={`/posts?id=${record?.id}`}>
+            <a target="_blank" href={`/posts?userId=${record?.id}`} rel="noreferrer">
               <Button>Posts</Button>
             </a>
           );
@@ -76,11 +75,8 @@ export const columns = [
         key: 'x',
         render: (_, record) => {
           return (
-            <a href={`/posts?id=${record?.id}`}>
-              <Button>Albums</Button>
-            </a>
+              <ModalComponent userId={record?.id}/>            
           );
         },
-        // responsive: ['md'],
       },
 ];

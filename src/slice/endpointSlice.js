@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { API } from '../constans';
 
-const initialState = { users: [] }
+const initialState = { users: [], albums: [] }
 
-export const fetchEndpoints = createAsyncThunk(
-  'data/fetchEndpoints',
+export const fetchData = createAsyncThunk(
+  'data/fetchData',
   async (params, arg) => {
     const response = await fetch(`${API}${params}`);
     const resultResponse = await response.json();
@@ -12,17 +12,29 @@ export const fetchEndpoints = createAsyncThunk(
   }
 )
 
-const pathEndpointSlice = createSlice({
+export const fetchAlbums = createAsyncThunk(
+  'data/fetchAlbums',
+  async (params, arg) => {
+    const response = await fetch(`${API}${params}`);
+    const resultResponse = await response.json();
+    return resultResponse;
+  }
+)
+
+const dataSlice = createSlice({
   name: 'data',
   initialState,
   extraReducers: {
-    [fetchEndpoints.fulfilled]: (state, action) => {
-      console.log(state, action, 'state');
+    [fetchData.fulfilled]: (state, action) => {
       state.users = action.payload;
+    },
+    [fetchAlbums.fulfilled]: (state, action) => {
+      state.albums = action.payload;
     }
   },
 })
 
-export const { addPosts } = pathEndpointSlice.actions
-export const userList = (state) => state.pathEndpointSlice.users
-export default pathEndpointSlice.reducer
+export const { addPosts } = dataSlice.actions
+export const userList = (state) => state.dataSlice.users
+export const albumsList = (state) => state.dataSlice.albums
+export default dataSlice.reducer
